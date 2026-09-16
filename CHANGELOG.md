@@ -11,6 +11,29 @@ _Repository_.
 
 ### Added
 
+- **`qe-pr-kit` 0.2.0** — a test-quality judge, and a second way to run the
+  tiering.
+
+  The `Missing tests` signal asked whether changed lines were covered, never
+  whether the tests were worth anything — so a spec that mocked the API and
+  asserted the fixture counted as coverage and bought a lighter review tier
+  while the changed code never ran.
+
+  - `pr-tier-test-judge` (agent) — reads the production diff and the test diff
+    and scores them on three dimensions: whether the changed code actually
+    runs, whether anything asserts the outcome, and either branch coverage
+    (unit, component) or flakiness (E2E). Penalty-only: it can raise the risk,
+    never lower it. It never sees the tier or the other signals.
+  - `pr-tier-risk-criticality` (agent) — the scoring run in an isolated
+    context, for automation and for other agents. Same model, same verdict as
+    the skill.
+  - `references/tiering-model.md` — the axes, weights, thresholds, flags and
+    matrix, moved out of the skill so the two entry points cannot drift apart.
+  - `references/test-quality/` — the rulers the judge measures against, with
+    worked examples across Playwright (TypeScript, Python, Java, .NET),
+    Vitest, pytest, JUnit and Testing Library. Calibrating the judge means
+    adding to these files; the guide is in their `README.md`.
+
 - **Repository** — initial scaffolding: the `quality-tools` marketplace and
   five kits, plus install and contribution guides, skill and agent templates,
   and `scripts/validate.sh`.
@@ -29,6 +52,18 @@ _Repository_.
   | `qe-service-kit` | `service-understand`, `datadog-service-catalog-validator`, `support-troubleshooting-guide` | Claude desktop uploads |
 
   Every copy was verified byte-identical to its source.
+
+### Changed
+
+- **`qe-pr-kit` 0.2.0** — the `fiscal-de-linha` skill is now
+  `pr-tier-risk-criticality`. The name is the dispatch handle and says what the
+  tool does, which the metaphor did not. Its scoring rules moved to
+  `references/tiering-model.md`; it keeps bootstrap mode, which is a
+  conversation rather than a scoring run.
+
+  Anything referring to the old name needs updating —
+  including `~/.claude/agents/pr.md`, which lives outside this repository and
+  carries its own copy of the tiering model.
 
 ### Notes on what was left behind
 

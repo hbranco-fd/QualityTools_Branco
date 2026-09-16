@@ -39,7 +39,7 @@
     {
       "name": "qe-pr-kit",
       "description": "Decide how much review a PR needs, assess risk, and open PRs to convention.",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "source": "./plugins/qe-pr-kit",
       "author": {
         "name": "Helder Branco",
