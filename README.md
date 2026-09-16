@@ -1,6 +1,19 @@
 # QualityTools
 
-QE tooling for Claude Code, packaged as **kits**.
+AI tooling for Claude Code, built from a Quality Engineer's point of view and
+packaged as **kits**.
+
+## Purpose
+
+A single place to keep and grow the QE tooling I actually use, under version
+control rather than scattered across editor uploads and machine-local config.
+This repository is the source of truth: what ships is what is committed here.
+
+The ground it is meant to cover is test design and coverage, defect analysis
+and triage, quality reporting, and automation helpers for QA workflows. Not all
+of that is built — the table below is the honest inventory of what exists today.
+
+## Kits
 
 Each kit is named after the artefact you have in your hands right now. Install
 only the ones that match the work you actually do — there is no need to take
@@ -17,7 +30,7 @@ the whole set.
 ## Install
 
 ```
-/plugin marketplace add fanduel/QualityTools_Branco
+/plugin marketplace add hbranco-fd/QualityTools_Branco
 /plugin install qe-ticket-kit@quality-tools
 ```
 

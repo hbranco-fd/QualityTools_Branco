@@ -9,7 +9,7 @@ want.
 From GitHub:
 
 ```
-/plugin marketplace add fanduel/QualityTools_Branco
+/plugin marketplace add hbranco-fd/QualityTools_Branco
 ```
 
 Or, if you have a local clone (useful while developing a kit):
