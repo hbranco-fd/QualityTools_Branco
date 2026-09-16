@@ -29,13 +29,14 @@ the whole set.
 
 ## Install
 
-```
-/plugin marketplace add hbranco-fd/QualityTools_Branco
-/plugin install qe-ticket-kit@quality-tools
+```bash
+claude plugin marketplace add hbranco-fd/QualityTools_Branco
+claude plugin install qe-ticket-kit@quality-tools
 ```
 
-Full instructions, including installing from a local clone, are in
-[docs/INSTALL.md](docs/INSTALL.md).
+Installing copies the kit into a version-keyed cache, so editing this repository
+does not change an installed kit until you bump its version and update. Full
+instructions, including the edit loop, are in [docs/INSTALL.md](docs/INSTALL.md).
 
 ## Layout
 
