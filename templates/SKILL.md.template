@@ -1,0 +1,60 @@
+---
+name: <kebab-case-name, identical to the directory name>
+description: >
+  <What it does, one concrete clause.> Use when <the moment the user is in>.
+  Trigger on <literal phrases the user would type>, or when the user
+  <describes the situation without naming the skill>. Also trigger for
+  <the same phrases in Portuguese, if the skill is used in both languages>.
+  Prefer triggering over not — if there is any chance the user wants
+  <the outcome>, activate.
+---
+
+# <Skill Name>
+
+<One paragraph. What this produces, and what goes wrong without it. Write it
+for someone who has never seen this skill and is deciding whether to read on.>
+
+## When to use this
+
+- <Concrete situation>
+- <Concrete situation>
+
+## When not to use this
+
+- <Situation that looks similar but needs a different skill — name that skill>
+
+## Inputs you need
+
+Before starting, get hold of:
+
+- <Thing, and where it usually lives>
+- <Thing>
+
+If something is missing, ask for it rather than inventing it.
+
+## Process
+
+1. <Step — an instruction, not a description>
+2. <Step>
+3. <Step>
+
+## Output
+
+<What the user ends up with: a file at a path, a Confluence page, a block of
+text in the conversation. Be specific — "a test plan" is not a format.>
+
+<If the output has a fixed shape, show it here as a filled-in example rather
+than describing it. An example is worth more than a schema.>
+
+## Rules
+
+- <Constraint that is easy to get wrong>
+- <Convention specific to this team or service>
+
+## References
+
+<Delete this section if unused. Anything long, stable, or reusable — framework
+docs, lookup tables, worked examples — goes in a file beside this one and gets
+linked here, not pasted above.>
+
+- [<name>](references/<file>.md) — <what it holds and when to open it>

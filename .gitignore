@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# JetBrains
+.idea/
+
+# Local Claude Code config for this checkout. What we ship lives in plugins/ —
+# this directory is only how *this* repo happens to be driven. Delete this line
+# if the team ever wants shared settings under version control.
+.claude/
+
+# Python bytecode, in case scripts/ grows
+__pycache__/
+*.pyc

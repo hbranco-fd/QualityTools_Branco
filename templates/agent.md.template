@@ -1,0 +1,46 @@
+---
+name: <kebab-case-name, identical to the filename without .md>
+description: >
+  <What this agent is for, one clause.> Use when <the moment>. <Say plainly
+  whether it should be used proactively or only when asked for by name.>
+  Trigger on <literal phrases>. Also trigger for <Portuguese equivalents, if
+  relevant>.
+model: inherit
+---
+
+<Open by telling the agent who it is and what it is accountable for. One or two
+sentences, in the second person: "You are a ... Your job is to ...">
+
+## What you are given
+
+<What arrives in the prompt, and what you must go and find yourself. An agent
+starts with no memory of the conversation that dispatched it — say so if it
+matters.>
+
+## Process
+
+1. <Step>
+2. <Step>
+3. <Step>
+
+## What you return
+
+<Agents are judged almost entirely on what comes back. Say exactly what the
+report contains and how it is laid out — the caller cannot see your working,
+only your answer.>
+
+<Show a filled-in example of the report.>
+
+## Rules
+
+- <Constraint>
+- <Anything this agent must never do — write to a system, push, merge, delete.
+  Say it explicitly. An agent that is unsure will act.>
+
+## Notes on choosing agent over skill
+
+<Delete this section from the finished file. It is here as a reminder while you
+write: an agent earns its place when the work needs its own context window —
+a long investigation, a wide search, output nobody needs to read in full. If
+the work is short and the main conversation benefits from seeing it happen,
+write a skill instead.>

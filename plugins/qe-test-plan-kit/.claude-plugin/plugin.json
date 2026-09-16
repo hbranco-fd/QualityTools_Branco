@@ -1,0 +1,19 @@
+{
+  "name": "qe-test-plan-kit",
+  "description": "Design test plans and scenarios - functional coverage, manual test plans, and business-language Gherkin.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Helder Branco",
+    "email": "helder.branco@fanduel.com"
+  },
+  "repository": "https://github.com/fanduel/QualityTools_Branco",
+  "keywords": [
+    "qa",
+    "qe",
+    "test-plan",
+    "gherkin",
+    "bdd",
+    "test-design",
+    "fanduel"
+  ]
+}

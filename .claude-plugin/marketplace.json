@@ -1,0 +1,60 @@
+{
+  "name": "quality-tools",
+  "description": "QE tooling for Claude Code, packaged as kits - one per artefact you have in your hands.",
+  "owner": {
+    "name": "Helder Branco",
+    "email": "helder.branco@fanduel.com"
+  },
+  "plugins": [
+    {
+      "name": "qe-ticket-kit",
+      "description": "Assess and improve Jira tickets, and write structured bug reports.",
+      "version": "0.1.0",
+      "source": "./plugins/qe-ticket-kit",
+      "author": {
+        "name": "Helder Branco",
+        "email": "helder.branco@fanduel.com"
+      }
+    },
+    {
+      "name": "qe-test-plan-kit",
+      "description": "Design test plans and scenarios - functional coverage, manual test plans, and business-language Gherkin.",
+      "version": "0.1.0",
+      "source": "./plugins/qe-test-plan-kit",
+      "author": {
+        "name": "Helder Branco",
+        "email": "helder.branco@fanduel.com"
+      }
+    },
+    {
+      "name": "qe-test-code-kit",
+      "description": "Implement automated tests - step definitions, component tests, and fixtures.",
+      "version": "0.1.0",
+      "source": "./plugins/qe-test-code-kit",
+      "author": {
+        "name": "Helder Branco",
+        "email": "helder.branco@fanduel.com"
+      }
+    },
+    {
+      "name": "qe-pr-kit",
+      "description": "Decide how much review a PR needs, assess risk, and open PRs to convention.",
+      "version": "0.1.0",
+      "source": "./plugins/qe-pr-kit",
+      "author": {
+        "name": "Helder Branco",
+        "email": "helder.branco@fanduel.com"
+      }
+    },
+    {
+      "name": "qe-service-kit",
+      "description": "Map and document services - architecture, contracts, and catalog compliance.",
+      "version": "0.1.0",
+      "source": "./plugins/qe-service-kit",
+      "author": {
+        "name": "Helder Branco",
+        "email": "helder.branco@fanduel.com"
+      }
+    }
+  ]
+}

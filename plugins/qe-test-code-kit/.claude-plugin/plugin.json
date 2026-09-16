@@ -1,0 +1,19 @@
+{
+  "name": "qe-test-code-kit",
+  "description": "Implement automated tests - step definitions, component tests, and fixtures.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Helder Branco",
+    "email": "helder.branco@fanduel.com"
+  },
+  "repository": "https://github.com/fanduel/QualityTools_Branco",
+  "keywords": [
+    "qa",
+    "qe",
+    "cucumber",
+    "test-automation",
+    "bdd",
+    "component-tests",
+    "fanduel"
+  ]
+}
