@@ -24,7 +24,7 @@ the whole set.
 | [`qe-ticket-kit`](plugins/qe-ticket-kit) | You have a ticket in front of you | `bug-reporter`, `story-spec-writer`, `ticket-quality-analyzer` |
 | [`qe-test-plan-kit`](plugins/qe-test-plan-kit) | You need to decide what to test | `cucumber-component-test-writer`, `manual-test-plan-writer`, `pcsa-md-functional-test-plan` |
 | [`qe-test-code-kit`](plugins/qe-test-code-kit) | You need to make the tests run | `mason` (agent) |
-| [`qe-pr-kit`](plugins/qe-pr-kit) | You have a pull request to deal with | `fiscal-de-linha` |
+| [`qe-pr-kit`](plugins/qe-pr-kit) | You have a pull request to deal with | `pr-tier-risk-criticality` (skill + agent), `pr-tier-test-judge` (agent) |
 | [`qe-service-kit`](plugins/qe-service-kit) | You need to understand a service | `service-understand`, `datadog-service-catalog-validator`, `support-troubleshooting-guide` |
 
 ## Install
