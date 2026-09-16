@@ -64,22 +64,41 @@ marketplace does not force every kit forward.
 ## Editing a kit
 
 Because installing copies into a version-keyed cache, changing a file in the
-repository is not enough. To get an edit into an installed kit:
+repository does **not** reach an installed kit on its own. Two ways to close
+the gap, depending on whether you are iterating or releasing.
 
-1. Edit the file in the repository.
-2. Bump the kit's version in **both** `plugins/<kit>/.claude-plugin/plugin.json`
+### While iterating
+
+```bash
+claude plugin uninstall <kit>@quality-tools
+claude plugin install <kit>@quality-tools
+```
+
+Uninstalling clears the cache entry, so the install that follows copies whatever
+is on disk right now. No version bump needed. Use this while a skill is still
+moving.
+
+### When releasing
+
+1. Bump the kit's version in **both** `plugins/<kit>/.claude-plugin/plugin.json`
    and its entry in `.claude-plugin/marketplace.json`. `./scripts/validate.sh`
    fails if they disagree.
-3. Commit.
-4. `claude plugin marketplace update quality-tools`
-5. `claude plugin update <kit>@quality-tools`
+2. Commit.
+3. `claude plugin marketplace update quality-tools`
+4. `claude plugin update <kit>@quality-tools`
 
-Skipping step 2 makes step 5 a no-op — `claude plugin update` compares versions
-and reports the kit is already current, leaving the old copy in place.
+This is the path anyone else's machine will take, so a change is not really
+shipped until it has a version behind it.
 
-If you are iterating quickly and do not want to bump a version per keystroke,
-uninstall and reinstall the kit instead, or work against the file directly and
-only package once the skill settles.
+### What does not work
+
+| Command | Result on an edit with no version bump |
+| --- | --- |
+| `claude plugin update <kit>@quality-tools` | No-op — reports the kit is already at the current version |
+| `claude plugin install <kit>@quality-tools` | No-op — reports the kit is already installed |
+
+Both leave the old copy in the cache and say nothing is wrong, which is the
+trap: the command succeeds and your edit is still not live.
 
 ## Removing a kit
 
