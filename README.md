@@ -48,6 +48,7 @@ plugins/<kit>/                    One directory per kit
   agents/<name>.md                Agents
   commands/<name>.md              Slash commands
 docs/                             Install and contribution guides
+docs/pipeline-runs/               One report per AI pipeline cycle, plus its template
 templates/                        Starting points for new skills and agents
 scripts/validate.sh               Run before committing
 ```

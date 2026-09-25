@@ -34,6 +34,13 @@ _Repository_.
     Vitest, pytest, JUnit and Testing Library. Calibrating the judge means
     adding to these files; the guide is in their `README.md`.
 
+- **Repository** — `docs/pipeline-runs/`, a written record of AI pipeline
+  cycles. `TEMPLATE.md` fixes the shape — per-step model, duration and tokens,
+  cost, the two human gates measured apart from step time, and a source for
+  every figure — and `GRIZZ-169.md` is the first report written to it. A cycle
+  otherwise leaves only a machine-local ledger and, once it closes, a telemetry
+  JSON; neither outlives the machine that produced it.
+
 - **Repository** — initial scaffolding: the `quality-tools` marketplace and
   five kits, plus install and contribution guides, skill and agent templates,
   and `scripts/validate.sh`.
