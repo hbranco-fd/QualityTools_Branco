@@ -56,7 +56,7 @@ Ask for anything missing:
 confluence:
   cloud_id: <site, e.g. fanduel.atlassian.net>
   space_key: <SPACEKEY>
-  parent_page_id: <id>
+  parent_page_id: <default — id>
 wiki_ingest:
   enabled: false                 # master switch — off by default
   repo: <path or git URL of a karpathy-llm-wiki-style repo>
@@ -67,6 +67,7 @@ services:
     repo: https://github.com/Flutter-Global/pcsa-md-service.git
     branch: main
     page_id: <optional>
+    parent_page_id: <optional — overrides confluence.parent_page_id for this service>
     config_repo: <optional>
     deployment_model: <optional>
     auto_tier: significant      # significant | all | report-only
@@ -77,7 +78,9 @@ defaults:
 
 Missing file or empty `services:` → report "0 serviços configurados — nada a fazer" and stop. Not an error.
 
-`wiki_ingest` is independent of `confluence` — set only when the caller also wants a Markdown snapshot exported to a wiki repo (see step 8b, "Wiki repo export"). A service's own `wiki_ingest: true/false` overrides the master switch for that service only.
+Every per-service switch overrides its top-level default for that service only: `parent_page_id` (→ `confluence.parent_page_id`) and `wiki_ingest` (→ `wiki_ingest.enabled`). Every other mention of `parent_page_id` below means the service's own resolved value — its override if set, else the config default.
+
+`wiki_ingest` is independent of `confluence` — set only when the caller also wants a Markdown snapshot exported to a wiki repo (see step 8b, "Wiki repo export").
 
 If nobody is there to answer (unattended run), never block on a question: use config + defaults, and flag what you had to assume.
 

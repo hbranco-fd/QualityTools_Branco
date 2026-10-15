@@ -44,7 +44,7 @@ Ask the user for anything missing:
 confluence:
   cloud_id: <site, e.g. fanduel.atlassian.net>
   space_key: <SPACEKEY>
-  parent_page_id: <id of the page under which service pages live>
+  parent_page_id: <default — id of the page under which service pages live>
 wiki_ingest:
   enabled: false                 # master switch — off by default
   repo: <path or git URL of a karpathy-llm-wiki-style repo>
@@ -55,6 +55,7 @@ services:
     repo: https://github.com/Flutter-Global/pcsa-md-service.git
     branch: main
     page_id: <optional — set after first run; else found by title>
+    parent_page_id: <optional — overrides confluence.parent_page_id for this service>
     config_repo: <optional — overrides Preflight discovery>
     deployment_model: <optional — v2 | vm-evo | podium>
     auto_tier: significant      # significant | all | report-only
@@ -65,7 +66,9 @@ defaults:
 
 Missing file or empty `services:` → report "0 serviços configurados — nada a fazer" and stop. Not an error.
 
-`wiki_ingest` is independent of `confluence` — set only when the caller also wants a Markdown snapshot exported to a wiki repo (see "Wiki Repo Export"). A service's own `wiki_ingest: true/false` overrides `wiki_ingest.enabled` for that service only; omit it to just inherit the master switch.
+Every per-service switch overrides its top-level default for that service only; omit it to inherit the default. This applies to `parent_page_id` (service → `confluence.parent_page_id`) and `wiki_ingest` (service → `wiki_ingest.enabled`). Every other mention of `parent_page_id` below means the service's own resolved value — its override if set, else the config default — so Phase 2b sibling matching and "never edit outside the subtree" only ever consider pages under that same parent.
+
+`wiki_ingest` is independent of `confluence` — set only when the caller also wants a Markdown snapshot exported to a wiki repo (see "Wiki Repo Export").
 
 ---
 
