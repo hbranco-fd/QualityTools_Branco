@@ -67,32 +67,11 @@ the caller's context.
 
 ### Config file (`auto-documentation-config.yaml`)
 
-```yaml
-confluence:
-  cloud_id: fanduel.atlassian.net
-  space_key: SPACEKEY
-  parent_page_id: 123456789          # default parent page for services below
-wiki_ingest:                         # optional — off unless set
-  enabled: false
-  repo: <path or git URL of a karpathy-llm-wiki-style repo>
-  raw_dir: Wiki/raw/sportsbook-services
-  branch: main
-services:
-  - name: PCSA-MD
-    repo: https://github.com/Flutter-Global/pcsa-md-service.git
-    branch: main
-    auto_tier: significant          # significant | all | report-only
-  - name: RISK-SVC
-    repo: https://github.com/fanduel/risk-service.git
-    branch: main
-    parent_page_id: 987654321        # this service docs live under a different page
-    wiki_ingest: true                # only this service exports to the wiki repo
-defaults:
-  auto_tier: significant
-```
-
-`parent_page_id` and `wiki_ingest` can be set per service — each overrides its top-level
-default (`confluence.parent_page_id`, `wiki_ingest.enabled`) for that service only.
+One Confluence target and one `wiki_ingest` target by default, with per-service
+overrides (a service can live under a different Confluence principal page, or be the only
+one that exports to a wiki repo). Full schema, field defaults and a worked example:
+[`skills/auto-documentation/references/config.md`](skills/auto-documentation/references/config.md)
+— that file is the single source of truth, not repeated here.
 
 An empty or missing config is reported, not an error — the run just stops with
 "0 serviços configurados".
