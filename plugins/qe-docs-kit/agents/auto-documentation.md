@@ -57,6 +57,11 @@ confluence:
   cloud_id: <site, e.g. fanduel.atlassian.net>
   space_key: <SPACEKEY>
   parent_page_id: <id>
+wiki_ingest:
+  enabled: false                 # master switch — off by default
+  repo: <path or git URL of a karpathy-llm-wiki-style repo>
+  raw_dir: <path inside that repo, e.g. Wiki/raw/sportsbook-services>
+  branch: main                   # base branch the PR targets
 services:
   - name: PCSA-MD
     repo: https://github.com/Flutter-Global/pcsa-md-service.git
@@ -65,11 +70,14 @@ services:
     config_repo: <optional>
     deployment_model: <optional>
     auto_tier: significant      # significant | all | report-only
+    wiki_ingest: <optional — true|false, overrides the master switch for this service>
 defaults:
   auto_tier: significant
 ```
 
 Missing file or empty `services:` → report "0 serviços configurados — nada a fazer" and stop. Not an error.
+
+`wiki_ingest` is independent of `confluence` — set only when the caller also wants a Markdown snapshot exported to a wiki repo (see step 8b, "Wiki repo export"). A service's own `wiki_ingest: true/false` overrides the master switch for that service only.
 
 If nobody is there to answer (unattended run), never block on a question: use config + defaults, and flag what you had to assume.
 
@@ -198,6 +206,27 @@ Before the first draft, call `getContentFormatGuide` with `toolName: "createConf
 4. Re-stamp `source-head` and `generated` on the main page always, and on every page touched.
 5. Never touch pages outside the service subtree. Never delete or move pages.
 
+### 8b. Wiki repo export (optional)
+
+Only when `wiki_ingest.enabled` (or this service's own `wiki_ingest: true` override) is set. Runs after step 8, never instead of it; best-effort, never blocks Confluence or other services.
+
+1. Render the main page's business/contract sections (O que faz, Stack, Arquitetura, Contratos, Modelo de domínio, Features, Deployment) to plain Markdown — no Confluence macros.
+2. Pull `wiki_ingest.repo`; branch off `wiki_ingest.branch` (default `main`) as `autodoc/<service-slug>-<YYYY-MM-DD>`.
+3. Write `<wiki_ingest.raw_dir>/<YYYY-MM-DD>-<service-slug>-service-docs.md`:
+
+   ```
+   # <ServiceName> — AutoDocumentation Snapshot
+
+   > Source: <repo_url> @ <source-head sha>
+   > Collected: <YYYY-MM-DD>
+   > Published: <date of the source-head commit>
+
+   <rendered markdown>
+   ```
+
+4. Commit, push the branch, open a PR against `wiki_ingest.branch`. **Never push directly to the base branch.** Compiling the raw file into that repo's curated wiki pages is a separate process, done by the target repo's own ingest skill once a human reviews and merges the PR — this step's job ends at "PR opened".
+5. Failure (repo unreachable, push rejected, PR creation fails) → flag in the report.
+
 ### 9. Report (see Report section)
 
 ---
@@ -287,7 +316,8 @@ Open questions:
 1. Drift table: service · baseline (sha/date/none) · commits · categories · tier · selected.
 2. Per updated service: new SHA, pages created/updated (links), stale features, review rounds + verdict.
 3. **Precisa revisão humana** — aggregated: reviewer unresolved items, missing DLT, unconfirmed idempotency, inferred values, ambiguous deployment model, manual edits, stale features, cross-service contradictions (e.g. producer/consumer schema version skew between `contracts-index` blocks).
-4. Failures: pull, missing repo, Confluence auth/permission, config, blocked pages, kept workspaces.
+4. Failures: pull, missing repo, Confluence auth/permission, config, blocked pages, kept workspaces, wiki export/PR.
+5. Wiki repo export (when enabled): PR link per service, or failure reason.
 
 ---
 
@@ -299,3 +329,4 @@ Open questions:
 - Subagents never write to Confluence; reviewer never edits human-owned sections.
 - Max 2 review rounds — then publish with flags, don't loop.
 - One repo/page failure never blocks the rest of a sweep.
+- Wiki repo export is opt-in (`wiki_ingest.enabled`) and PR-only — never a direct push to the wiki repo's base branch.
