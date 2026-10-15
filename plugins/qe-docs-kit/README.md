@@ -56,20 +56,22 @@ trigger on its own:
 > `space_key` / `parent_page_id` when asked.
 
 **Several services, unattended (e.g. scheduled):**
-> "Run an auto-documentation sweep using `auto-documentation-config.yaml`"
+> "Run an auto-documentation sweep using `~/my-auto-documentation-config.yaml`"
 
 **Just see what's drifted, change nothing:**
-> "Run auto-documentation in report-only mode against `auto-documentation-config.yaml`"
+> "Run auto-documentation in report-only mode against `~/my-auto-documentation-config.yaml`"
 
 For automation or dispatch from another agent, use the `auto-documentation` agent
 directly instead of the skill — same behavior, runs as a subagent so it doesn't consume
 the caller's context.
 
-### Config file (`auto-documentation-config.yaml`)
+### Config file
 
-One Confluence target and one `wiki_ingest` target by default, with per-service
-overrides (a service can live under a different Confluence principal page, or be the only
-one that exports to a wiki repo). Full schema, field defaults and a worked example:
+The config path is always given by the caller — there's no single shared config. Copy
+[`auto-documentation-config.example.yaml`](auto-documentation-config.example.yaml) to a
+file of your own (your own repo, home dir, wherever) and point AutoDocumentation at it;
+each person/team keeps their own copy with their own services and Confluence target. Full
+schema, field defaults and a worked example:
 [`skills/auto-documentation/references/config.md`](skills/auto-documentation/references/config.md)
 — that file is the single source of truth, not repeated here.
 

@@ -1,0 +1,29 @@
+# Template for the qe-docs-kit `auto-documentation` skill/agent config.
+# Schema: skills/auto-documentation/references/config.md
+#
+# This is a shared example, not shared state — don't edit it in place for your own
+# services. Copy it somewhere of your own (your own repo, home dir, wherever) and point
+# AutoDocumentation at YOUR copy's path; the path is always given by the caller, never
+# fixed. Each person/team keeps their own file with their own services and Confluence
+# target.
+
+confluence:
+  cloud_id: "TODO: e.g. fanduel.atlassian.net"
+  space_key: "TODO: e.g. QE"
+  parent_page_id: "TODO: id of the Confluence principal page under which service pages live"
+
+wiki_ingest:
+  enabled: false                 # flip to true once a service below sets wiki_ingest: true
+  repo: https://github.com/fanduel/risk-trading-and-catalog-wiki.git
+  raw_dir: Wiki/raw/sportsbook-services
+  branch: main
+
+services: []
+  # - name: <ServiceName>
+  #   repo: "https://github.com/... .git"
+  #   branch: main
+  #   auto_tier: significant      # significant | all | report-only
+  #   wiki_ingest: true           # only if this service should also export to wiki_ingest.repo
+
+defaults:
+  auto_tier: significant
