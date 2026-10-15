@@ -55,6 +55,16 @@
         "name": "Helder Branco",
         "email": "helder.branco@fanduel.com"
       }
+    },
+    {
+      "name": "qe-docs-kit",
+      "description": "Generate and refresh code-grounded Confluence documentation for FanDuel services.",
+      "version": "0.1.0",
+      "source": "./plugins/qe-docs-kit",
+      "author": {
+        "name": "Helder Branco",
+        "email": "helder.branco@fanduel.com"
+      }
     }
   ]
 }

@@ -1,0 +1,18 @@
+{
+  "name": "qe-docs-kit",
+  "description": "Generate and refresh code-grounded Confluence documentation for FanDuel services.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Helder Branco",
+    "email": "helder.branco@fanduel.com"
+  },
+  "repository": "https://github.com/hbranco-fd/QualityTools_Branco",
+  "keywords": [
+    "qa",
+    "qe",
+    "documentation",
+    "confluence",
+    "architecture",
+    "fanduel"
+  ]
+}
