@@ -45,6 +45,11 @@ confluence:
   cloud_id: <site, e.g. fanduel.atlassian.net>
   space_key: <SPACEKEY>
   parent_page_id: <id of the page under which service pages live>
+wiki_ingest:
+  enabled: false                 # master switch — off by default
+  repo: <path or git URL of a karpathy-llm-wiki-style repo>
+  raw_dir: <path inside that repo, e.g. Wiki/raw/sportsbook-services>
+  branch: main                   # base branch the PR targets
 services:
   - name: PCSA-MD
     repo: https://github.com/Flutter-Global/pcsa-md-service.git
@@ -53,11 +58,14 @@ services:
     config_repo: <optional — overrides Preflight discovery>
     deployment_model: <optional — v2 | vm-evo | podium>
     auto_tier: significant      # significant | all | report-only
+    wiki_ingest: <optional — true|false, overrides the master switch for this service>
 defaults:
   auto_tier: significant
 ```
 
 Missing file or empty `services:` → report "0 serviços configurados — nada a fazer" and stop. Not an error.
+
+`wiki_ingest` is independent of `confluence` — set only when the caller also wants a Markdown snapshot exported to a wiki repo (see "Wiki Repo Export"). A service's own `wiki_ingest: true/false` overrides `wiki_ingest.enabled` for that service only; omit it to just inherit the master switch.
 
 ---
 
@@ -500,6 +508,29 @@ Open questions:
 
 ---
 
+## Wiki Repo Export (optional)
+
+Off by default — runs only when `wiki_ingest.enabled: true` (or the service's own `wiki_ingest: true` override is set). Never a substitute for Confluence; runs **after** the Confluence publish step, best-effort.
+
+1. Render the main page's business/contract sections (O que faz, Stack, Arquitetura, Contratos, Modelo de domínio, Features, Deployment — same content, no Confluence macros) to plain Markdown.
+2. Pull `wiki_ingest.repo`; branch off `wiki_ingest.branch` (default `main`) as `autodoc/<service-slug>-<YYYY-MM-DD>`.
+3. Write the raw file at `<wiki_ingest.raw_dir>/<YYYY-MM-DD>-<service-slug>-service-docs.md`, following that repo's own raw-source header convention:
+
+   ```
+   # <ServiceName> — AutoDocumentation Snapshot
+
+   > Source: <repo_url> @ <source-head sha>
+   > Collected: <YYYY-MM-DD>
+   > Published: <date of the source-head commit>
+
+   <rendered markdown>
+   ```
+
+4. Commit, push the branch, open a PR against `wiki_ingest.branch` (title `AutoDocumentation: <ServiceName> snapshot <YYYY-MM-DD>`). **Never push directly to the base branch** — treat it as protected even without checking, since compiling the raw file into that repo's curated wiki pages is a separate step done by its own ingest process once a human merges the PR. This run's job ends at "PR opened".
+5. Failure at any step (repo unreachable, push rejected, PR creation fails) → flag it in the report; never blocks the Confluence publish or other services in a sweep.
+
+---
+
 ## Sweep Mode
 
 Read-only until selection is resolved.
@@ -528,7 +559,7 @@ Adapt to the stack (TypeScript BFF: `src/routes/**`, `src/schemas/**` → API/CO
    1. Drift table: service · baseline (sha/date/none) · commits · files · categories · tier · selected.
    2. Per updated service: new SHA, pages created/updated (links), stale-feature flags.
    3. **Precisa revisão humana** — aggregated flags from all subagents (missing DLT, unconfirmed idempotency, inferred values, ambiguous deployment model, manual edits, stale features) plus cross-service contradictions (e.g. producer/consumer schema version skew between two services' `contracts-index`).
-   4. Failures: pull, missing repo, Confluence auth/permission, config.
+   4. Failures: pull, missing repo, Confluence auth/permission, config, wiki export/PR.
 
 Edge handling: pull failure → local HEAD + stale flag, continue; no usable `source-head` → date fallback, stamp on update; missing repo → gap, skip.
 
@@ -541,6 +572,7 @@ Edge handling: pull failure → local HEAD + stale flag, continue; no usable `so
 - Never overwrite human-owned sections or titles.
 - One repo/page failure never blocks the rest of a sweep.
 - Pages are drafts of truth until a service owner signs the validation checklist — even a 30-minute review catches subtle errors in business logic and edge cases.
+- Wiki Repo Export is opt-in (`wiki_ingest.enabled`) and PR-only — never a direct push to the wiki repo's base branch.
 
 ## Open items
 
